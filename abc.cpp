@@ -10,5 +10,5 @@ int main()
     x = &y;
     printf("%d", *x);
     change(x);
-    printf("%d", *x);
+    printf("%d", 2 * *2);
 }
