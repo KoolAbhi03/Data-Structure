@@ -1,117 +1,114 @@
-// C++ program to rotate
-// a linked list counter clock wise
-
+// C++ code to reverse a
+// stack using recursion
 #include <bits/stdc++.h>
 using namespace std;
 
-/* Link list node */
-class Node {
-public:
-	int data;
-	Node* next;
-};
+// using std::stack for
+// stack implementation
+stack<char> st;
 
-// This function rotates a linked list
-// counter-clockwise and updates the
-// head. The function assumes that k is
-// smaller than size of linked list.
-// It doesn't modify the list if
-// k is greater than or equal to size
-void rotate(Node** head_ref, int k)
+// initializing a string to store
+// result of reversed stack
+string ns;
+
+// Below is a recursive function
+// that inserts an element
+// at the bottom of a stack.
+void insert_at_bottom(char x)
 {
-	if (k == 0)
-		return;
 
-	// Let us understand the below
-	// code for example k = 4 and
-	// list = 10->20->30->40->50->60.
-	Node* current = *head_ref;
+	if (st.size() == 0)
+		st.push(x);
 
-	// current will either point to
-	// kth or NULL after this loop.
-	// current will point to node
-	// 40 in the above example
-	int count = 1;
-	while (count < k && current != NULL) {
-		current = current->next;
-		count++;
-	}
+	else
+	{
 
-	// If current is NULL, k is greater than
-	// or equal to count of nodes in linked list.
-	// Don't change the list in this case
-	if (current == NULL)
-		return;
+		// All items are held in Function Call
+		// Stack until we reach end of the stack
+		// When the stack becomes empty, the
+		// st.size() becomes 0, the above if
+		// part is executed and the item is
+		// inserted at the bottom
 
-	// current points to kth node.
-	// Store it in a variable. kthNode
-	// points to node 40 in the above example
-	Node* kthNode = current;
+		char a = st.top();
+		st.pop();
+		insert_at_bottom(x);
 
-	// current will point to
-	// last node after this loop
-	// current will point to
-	// node 60 in the above example
-	while (current->next != NULL)
-		current = current->next;
-
-	// Change next of last node to previous head
-	// Next of 60 is now changed to node 10
-	current->next = *head_ref;
-
-	// Change head to (k+1)th node
-	// head is now changed to node 50
-	*head_ref = kthNode->next;
-
-	// change next of kth node to NULL
-	// next of 40 is now NULL
-	kthNode->next = NULL;
-}
-
-/* UTILITY FUNCTIONS */
-/* Function to push a node */
-void push(Node** head_ref, int new_data)
-{
-	/* allocate node */
-	Node* new_node = new Node();
-
-	/* put in the data */
-	new_node->data = new_data;
-
-	/* link the old list off the new node */
-	new_node->next = (*head_ref);
-
-	/* move the head to point to the new node */
-	(*head_ref) = new_node;
-}
-
-/* Function to print linked list */
-void printList(Node* node)
-{
-	while (node != NULL) {
-		cout << node->data << " ";
-		node = node->next;
+		// push allthe items held in
+		// Function Call Stack
+		// once the item is inserted
+		// at the bottom
+		st.push(a);
 	}
 }
 
-/* Driver code*/
-int main(void)
+// Below is the function that
+// reverses the given stack using
+// insert_at_bottom()
+void reverse()
 {
-	/* Start with the empty list */
-	Node* head = NULL;
+	if (st.size() > 0)
+	{
 
-	// create a list 10->20->30->40->50->60
-	for (int i = 60; i > 0; i -= 10)
-		push(&head, i);
+		// Hold all items in Function
+		// Call Stack until we
+		// reach end of the stack
+		char x = st.top();
+		st.pop();
+		reverse();
 
-	cout << "Given linked list \n";
-	printList(head);
-	rotate(&head, 1);
-
-	cout << "\nRotated Linked list \n";
-	printList(head);
-
-	return (0);
+		// Insert all the items held
+		// in Function Call Stack
+		// one by one from the bottom
+		// to top. Every item is
+		// inserted at the bottom
+		insert_at_bottom(x);
+	}
 }
 
-// This code is contributed by rathbhupendra
+// Driver Code
+int main()
+{
+
+	// push elements into
+	// the stack
+	st.push('1');
+	st.push('2');
+	st.push('3');
+	st.push('4');
+
+	cout << "Original Stack" << endl;
+
+	// print the elements
+	// of original stack
+	cout << "1"
+		 << " "
+		 << "2"
+		 << " "
+		 << "3"
+		 << " "
+		 << "4"
+		 << endl;
+
+	// function to reverse
+	// the stack
+	reverse();
+	cout << "Reversed Stack"
+		 << endl;
+
+	// storing values of reversed
+	// stack into a string for display
+	while (!st.empty())
+	{
+		char p = st.top();
+		st.pop();
+		ns += p;
+	}
+
+	// display of reversed stack
+	cout << ns[3] << " " << ns[2] << " "
+		 << ns[1] << " " << ns[0] << endl;
+	return 0;
+}
+
+// This code is contributed by Gautam Singh
