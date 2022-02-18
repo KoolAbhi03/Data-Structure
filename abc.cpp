@@ -1,14 +1,13 @@
-#include <stdio.h>
-void change(int *x)
+
+#include <bits/stdc++.h>
+void change(char *x[])
 {
-    *x = 5;
+    *x[0] = '1';
 }
 int main()
 {
-    int *x;
-    int y = 2;
-    x = &y;
-    printf("%d", *x);
-    change(x);
-    printf("%d", 2 * *2);
+    char *s[5];
+    *s = 'a';
+    change(s);
+    std::cout << *s[0] << std::endl;
 }
