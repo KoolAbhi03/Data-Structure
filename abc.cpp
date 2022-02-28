@@ -6,8 +6,8 @@ void change(char *x[])
 }
 int main()
 {
-    char *s[5];
-    *s = 'a';
-    change(s);
-    std::cout << *s[0] << std::endl;
+    bool x = true;
+    if (x == 1)
+        std::cout << "asd" << std::endl;
+    std::cout << x << std::endl;
 }
